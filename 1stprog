@@ -1,0 +1,22 @@
+Creating database ->use shalini
+db
+show collections
+
+db.student.insertOne({ Id:22333, Name:"shalini", Age:21, Branch:"ise"})
+{
+"acknowledged" : true,
+"insertedId" : ObjectId("624bbaefd8af65a8c3e9ad33")
+}
+db.student.insertMany([{ Id:12345,Name:"krishi",Age:23,Branch:"eee"},{Id:23231,Name:"adira",Age:20,Branch:"ece"}])
+{
+"acknowledged" : true,
+"insertedIds" : [
+ObjectId("624bc189d8af65a8c3e9ad34"),
+ObjectId("624bc189d8af65a8c3e9ad35")
+]
+}
+db.student.find().pretty()
+ Updating the age of the student 
+db.student.updateOne({Id:22333},{$set:{Age:23}})
+Deleting the name shalini from the record 
+db.student.deleteOne({Name:"shalini"}) 
