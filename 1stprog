@@ -20,7 +20,11 @@ db.student.find().pretty()
 db.student.updateOne({Id:22333},{$set:{Age:23}})
 Deleting the name shalini from the record 
 db.student.deleteOne({Name:"shalini"}) 
+or operation
 db.student.find({$or:[{Age:{$gt:22}},{Name:"krishi"}]})
+and operation
 db.student.find({$and:[{Name:"krishi"},{Id:12345}]})
+ aggregate 
  db.student.aggregate([{$match:{Age:{$gt:20}}}])
+to check the inserted records list
 db.student.count()
