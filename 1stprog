@@ -28,3 +28,40 @@ db.student.find({$and:[{Name:"krishi"},{Id:12345}]})
  db.student.aggregate([{$match:{Age:{$gt:20}}}])
 to check the inserted records list
 db.student.count()
+ db.student.aggregate([{$group:{_id:"$Id",same_Age:{$max:"$Age"}}}])
+{ "_id" : 12345, "same_Age" : 23 }
+{ "_id" : 23231, "same_Age" : 20 }
+> db.student.aggregate([{$group:{_id:"$Id",same_Age:{$min:"$Age"}}}])
+{ "_id" : 12345, "same_Age" : 23 }
+{ "_id" : 23231, "same_Age" : 20 }
+> db.student.aggregate([{$group:{_id:"$Id",same_Age:{$avg:"$Age"}}}])
+{ "_id" : 12345, "same_Age" : 23 }
+{ "_id" : 23231, "same_Age" : 20 }
+> db.student.aggregate([{$group:{_id:"$Id",same_Age:{$first:"$Name"}}}])
+{ "_id" : 12345, "same_Age" : "krishi" }
+{ "_id" : 23231, "same_Age" : "adira" }
+> db.student.aggregate([{$group:{_id:"$Id",same_Age:{$last:"$Name"}}}])
+{ "_id" : 23231, "same_Age" : "adira" }
+{ "_id" : 12345, "same_Age" : "krishi" }
+> db.student.aggregate(
+... [
+... {
+... "$match":
+... {
+... "Name":"adira"
+... }
+... }
+... ]
+... )
+{ "_id" : ObjectId("624bc189d8af65a8c3e9ad35"), "Id" : 23231, "Name" : "adira", "Age" : 20, "Branch" : "ece" }
+> db.student.aggregate([{$match:{Age:{$gt:20}}}])
+{ "_id" : ObjectId("624bc189d8af65a8c3e9ad34"), "Id" : 12345, "Name" : "krishi", "Age" : 23, "Branch" : "eee" }
+> db.student.aggregate([{$group:{_id:"$Id",same_Age:{$max:"$Age"}}}])
+{ "_id" : 12345, "same_Age" : 23 }
+{ "_id" : 23231, "same_Age" : 20 }
+> db.student.aggregate([{$group:{_id:"$Id",same_Age:{$sum:"$Age"}}}])
+{ "_id" : 12345, "same_Age" : 23 }
+{ "_id" : 23231, "same_Age" : 20 }
+> db.student.aggregate([{$group:{_id:"$Id",same_Age:{$push:"$Id"}}}])
+{ "_id" : 23231, "same_Age" : [ 23231 ] }
+{ "_id" : 12345, "same_Age" : [ 12345 ] }
